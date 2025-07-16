@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
 import Link from "next/link";
-import Agent from "@/components/ai-agent";
 import InterviewGeneratorForm from "@/components/interview-generator-form";
 import { getCurrentUser } from "@/lib/actions/auth.action";
 
@@ -20,13 +19,6 @@ const Page = async () => {
 
         <h3>Interview generation</h3>
       </div>
-
-      {/* <Agent
-        userName={user?.name!}
-        userId={user?.id}
-        // profileImage={user?.profileURL}
-        type="generate"
-      /> */}
 
       <InterviewGeneratorForm userId={user?.id!} />
     </>
