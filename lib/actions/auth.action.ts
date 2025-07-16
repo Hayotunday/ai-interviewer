@@ -3,6 +3,7 @@
 
 import { auth, db } from "@/firebase/admin";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 // Session duration (1 week)
 const SESSION_DURATION = 60 * 60 * 24 * 7;
@@ -95,6 +96,8 @@ export async function signOut() {
   const cookieStore = await cookies();
 
   cookieStore.delete("session");
+
+  redirect("/sign-in");
 }
 
 // Get current user from session cookie

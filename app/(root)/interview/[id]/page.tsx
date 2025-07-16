@@ -2,27 +2,33 @@
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-import Agent from "@/components/Agent";
-import { getRandomInterviewCover } from "@/lib/utils";
+import Agent from "@/components/ai-agent";
+import DisplayTechIcons from "@/components/display-tech-icons";
 
+import { getRandomInterviewCover } from "@/lib/utils";
 import {
   getFeedbackByInterviewId,
   getInterviewById,
 } from "@/lib/actions/general.action";
 import { getCurrentUser } from "@/lib/actions/auth.action";
-import DisplayTechIcons from "@/components/DisplayTechIcons";
 
 const InterviewDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
 
   const user = await getCurrentUser();
+  if (!user) redirect("/sign-in");
 
   const interview = await getInterviewById(id);
-  if (!interview) redirect("/");
+  if (!interview) {
+    // toast.error("Interview not found", {
+    //   description: "The interview you are looking for does not exist.",
+    // });
+    redirect("/");
+  }
 
   const feedback = await getFeedbackByInterviewId({
     interviewId: id,
-    userId: user?.id!,
+    userId: user.id,
   });
 
   return (
@@ -49,8 +55,8 @@ const InterviewDetails = async ({ params }: RouteParams) => {
       </div>
 
       <Agent
-        userName={user?.name!}
-        userId={user?.id}
+        userName={user.name ?? ""}
+        userId={user.id}
         interviewId={id}
         type="interview"
         questions={interview.questions}

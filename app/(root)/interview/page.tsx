@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
-import Agent from "@/components/Agent";
+import Link from "next/link";
+import Agent from "@/components/ai-agent";
+import InterviewGeneratorForm from "@/components/interview-generator-form";
 import { getCurrentUser } from "@/lib/actions/auth.action";
 
 const Page = async () => {
@@ -8,14 +10,25 @@ const Page = async () => {
 
   return (
     <>
-      <h3>Interview generation</h3>
+      <div className="w-full flex gap-5 items-center">
+        <Link
+          href="/"
+          className="!w-fit !bg-primary-200 !text-dark-100 hover:!bg-primary-200/80 !rounded-full !font-bold !px-5 cursor-pointer"
+        >
+          Home
+        </Link>
 
-      <Agent
+        <h3>Interview generation</h3>
+      </div>
+
+      {/* <Agent
         userName={user?.name!}
         userId={user?.id}
         // profileImage={user?.profileURL}
         type="generate"
-      />
+      /> */}
+
+      <InterviewGeneratorForm userId={user?.id!} />
     </>
   );
 };
