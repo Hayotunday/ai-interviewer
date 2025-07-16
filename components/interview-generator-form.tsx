@@ -2,8 +2,6 @@
 
 import React, { useState } from "react";
 import { z } from "zod";
-import Link from "next/link";
-import Image from "next/image";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -41,7 +39,7 @@ const InterviewGeneratorForm = ({ userId }: InterviewGeneratorProps) => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setLoading(true);
-    let req = await fetch("/api/vapi/generate", {
+    const req = await fetch("/api/vapi/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
